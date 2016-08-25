@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/timer_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="18sp"
+        android:text="Hello World!" />
+
+    <com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        app:max="10000"
+        app:pointer_size="16dp"
+        app:pointer_color="@color/colorPrimaryDark"
+        app:wheel_active_color="@color/colorPrimary"
+        app:wheel_unactive_color="@color/colorDarkGray"
+        app:show_text="false"
+        android:layout_margin="24dp" />
+</RelativeLayout>
