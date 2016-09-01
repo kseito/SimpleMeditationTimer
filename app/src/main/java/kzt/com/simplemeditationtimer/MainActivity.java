@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         seekbar.setOnSeekBarChangeListener(new HoloCircleSeekBar.OnCircleSeekBarChangeListener() {
             @Override
             public void onProgressChanged(HoloCircleSeekBar holoCircleSeekBar, int i, boolean b) {
-                timerText.setText(String.valueOf(i));
+                timerText.setText(CommonUtil.convertTime(i));
             }
 
             @Override
