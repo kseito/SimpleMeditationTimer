@@ -1,27 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/timer_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="35sp"
-        android:text="Hello World!" />
+    <data>
 
-    <com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar
-        android:id="@+id/seekbar"
+        <variable
+            name="handler"
+            type="kzt.com.simplemeditationtimer.MainActivityHandlers" />
+    </data>
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        app:max="60"
-        app:pointer_size="16dp"
-        app:pointer_color="@color/colorPrimaryDark"
-        app:wheel_active_color="@color/colorPrimary"
-        app:wheel_unactive_color="@color/colorDarkGray"
-        app:show_text="false"
-        android:layout_margin="24dp" />
-</RelativeLayout>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/timer_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Hello World!"
+            android:textSize="35sp" />
+
+        <com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            app:max="60"
+            app:pointer_color="@color/colorPrimaryDark"
+            app:pointer_size="16dp"
+            app:show_text="false"
+            app:wheel_active_color="@color/colorPrimary"
+            app:wheel_unactive_color="@color/colorDarkGray" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/seekbar"
+            android:layout_centerHorizontal="true"
+            android:onClick="@{handler.clickStartTimer}"
+            android:src="@mipmap/ic_play_arrow" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/seekbar"
+            android:layout_toLeftOf="@id/start_button"
+            android:onClick="@{handler.clickStopTimer}"
+            android:src="@mipmap/ic_stop" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/seekbar"
+            android:layout_toRightOf="@id/start_button"
+            android:onClick="@{handler.clickPauseTimer}"
+            android:src="@mipmap/ic_pause" />
+
+    </RelativeLayout>
+</layout>
