@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
 
     private TextView timerText;
     private ActivityMainBinding binding;
+    private boolean isMeditating = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,24 +45,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
         });
     }
 
-    private void changeButton(boolean flag) {
-        if (flag) {
-
-        }
-    }
-
     @Override
     public void clickStartTimer(View view) {
-        Toast.makeText(this, "くりく", Toast.LENGTH_SHORT).show();
+        AnimationUtils.startMeditation(binding.startButton, binding.stopButton, binding.pauseButton);
+        isMeditating = true;
     }
 
     @Override
     public void clickStopTimer(View view) {
-
+        AnimationUtils.stopMeditation(binding.startButton, binding.stopButton, binding.pauseButton);
+        isMeditating = false;
     }
 
     @Override
     public void clickPauseTimer(View view) {
-
+        Toast.makeText(this, "ぽーず", Toast.LENGTH_SHORT).show();
     }
 }
