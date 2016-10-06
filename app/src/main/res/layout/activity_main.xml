@@ -36,6 +36,16 @@
             app:wheel_active_color="@color/colorAccent"
             app:wheel_unactive_color="@color/colorPrimaryThin" />
 
+        <View
+            android:id="@+id/overlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/seekbar"
+            android:layout_alignLeft="@id/seekbar"
+            android:layout_alignRight="@id/seekbar"
+            android:layout_alignTop="@id/seekbar"
+            android:visibility="invisible"
+            android:clickable="true" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/stop_button"
@@ -62,7 +72,7 @@
             android:layout_below="@id/seekbar"
             android:layout_centerHorizontal="true"
             android:onClick="@{handler.clickStartTimer}"
-            android:src="@mipmap/ic_play_arrow" />
+            android:src="@mipmap/ic_start" />
 
     </RelativeLayout>
 </layout>
