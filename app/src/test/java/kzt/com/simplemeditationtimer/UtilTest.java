@@ -12,8 +12,15 @@ public class UtilTest {
 
     @Test
     public void checkConvertTime() {
-        int second = 600;
-        String actual = CommonUtil.convertTime(second);
+        int minute = 10;
+        String actual = CommonUtil.convertTime(minute);
         Assert.assertThat(actual, is("10:00"));
+    }
+
+    @Test
+    public void changeTextToTime() {
+        String time = "10:25";
+        int actual = CommonUtil.convertTextToTime(time);
+        Assert.assertThat(actual, is(625));
     }
 }

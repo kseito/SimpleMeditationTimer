@@ -1,5 +1,6 @@
 package kzt.com.simplemeditationtimer;
 
+import android.animation.AnimatorSet;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -21,8 +22,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
     private TextView timerText;
     private ActivityMainBinding binding;
     private CountDownTimer timer;
+    private AnimatorSet animatorSet;
 
-    private int tempTimeInMillis;
+    private int tempTimeInSecond;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,22 +52,24 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
         });
     }
 
-    private void startTimer(int timeMillis) {
-        binding.seekbar.setMax(3600000);
-        binding.seekbar.setValue(timeMillis);
+    private void startTimer(int timeSecond) {
+        binding.seekbar.setMax(3600);
+        binding.seekbar.setValue(timeSecond);
+        System.out.println("start:" + timeSecond);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        prefs.edit().putInt(PREF_SET_MINUTE, timeMillis / 60 / 1000).apply();
+        prefs.edit().putInt(PREF_SET_MINUTE, timeSecond / 60).apply();
 
         binding.overlay.setVisibility(View.VISIBLE);
 
-        timer = new CountDownTimer(timeMillis, 100) {
+        timer = new CountDownTimer(timeSecond * 1000, 200) {
             @Override
             public void onTick(long millisUntilFinished) {
                 long second = millisUntilFinished / 1000;
                 binding.timerText.setText(String.format("%1$02d:%2$02d",
                         second / 60, second % 60));
-                binding.seekbar.setValue(millisUntilFinished);
+                binding.seekbar.setValue(second);
+                System.out.println("per second:" + second);
             }
 
             @Override
@@ -86,17 +90,21 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
     }
 
     private void pauseTimer() {
-        if (tempTimeInMillis == 0) {
+        if (tempTimeInSecond == 0) {
             //pause
+            animatorSet = AnimationUtils.flashing(binding.timerText);
             binding.pauseButton.setImageResource(R.mipmap.ic_start);
-            tempTimeInMillis =  binding.seekbar.getValue();
+            tempTimeInSecond =  CommonUtil.convertTextToTime(binding.timerText.getText().toString()) + 1;
             timer.cancel();
+            System.out.println("pause save:" + tempTimeInSecond);
 
         } else {
             //reset pause
+            animatorSet.removeAllListeners();
             binding.pauseButton.setImageResource(R.mipmap.ic_pause);
-            startTimer(tempTimeInMillis);
-            tempTimeInMillis = 0;
+            startTimer(tempTimeInSecond);
+            tempTimeInSecond = 0;
+            System.out.println("pause reset:" + tempTimeInSecond);
         }
     }
 
@@ -104,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
     public void clickStartTimer(View view) {
         AnimationUtils.startMeditation(binding.startButton, binding.stopButton, binding.pauseButton);
 
-        startTimer(binding.seekbar.getValue() * 60 * 1000);
+        startTimer(binding.seekbar.getValue() * 60);
     }
 
     @Override

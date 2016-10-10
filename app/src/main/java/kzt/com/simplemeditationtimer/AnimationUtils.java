@@ -112,4 +112,42 @@ public class AnimationUtils {
         });
         animatorSet.start();
     }
+
+    public static AnimatorSet flashing(final View view) {
+        List<Animator> animatorList = new ArrayList<>();
+
+        ObjectAnimator hideView = ObjectAnimator.ofFloat(view, "alpha", 0f, 0f);
+        hideView.setDuration(500);
+        animatorList.add(hideView);
+
+        final ObjectAnimator showView = ObjectAnimator.ofFloat(view, "alpha", 1f, 1f);
+        showView.setDuration(500);
+        animatorList.add(showView);
+
+        final AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(animatorList);
+        animatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                animatorSet.start();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                showView.start();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animatorSet.start();
+        return animatorSet;
+    }
 }
