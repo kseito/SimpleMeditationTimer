@@ -1,10 +1,13 @@
 package kzt.com.simplemeditationtimer;
 
 import android.animation.AnimatorSet;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -94,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
             //pause
             animatorSet = AnimationUtils.flashing(binding.timerText);
             binding.pauseButton.setImageResource(R.mipmap.ic_start);
-            tempTimeInSecond =  CommonUtil.convertTextToTime(binding.timerText.getText().toString()) + 1;
+            tempTimeInSecond = CommonUtil.convertTextToTime(binding.timerText.getText().toString()) + 1;
             timer.cancel();
             System.out.println("pause save:" + tempTimeInSecond);
 
@@ -125,5 +128,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
     @Override
     public void clickPauseTimer(View view) {
         pauseTimer();
+    }
+
+    private void playSound() {
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.piano);
+        mp.start();
+    }
+
+    private void vibrate() {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(new long[]{0, 400, 800, 400, 800, 2000}, -1);
     }
 }
