@@ -5,13 +5,14 @@
 
         <variable
             name="handler"
-            type="kzt.com.simplemeditationtimer.MainActivityHandlers" />
+            type="kzt.com.simplemeditationtimer.MainActivityHandlers"/>
     </data>
 
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_main">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/background_main">
+
 
         <TextView
             android:id="@+id/timer_text"
@@ -20,7 +21,7 @@
             android:layout_centerInParent="true"
             android:text="00:00"
             android:textColor="@color/colorAccent"
-            android:textSize="35sp" />
+            android:textSize="35sp"/>
 
         <com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar
             android:id="@+id/seekbar"
@@ -34,7 +35,17 @@
             app:pointer_size="12dp"
             app:show_text="false"
             app:wheel_active_color="@color/colorAccent"
-            app:wheel_unactive_color="@color/colorPrimaryThin" />
+            app:wheel_unactive_color="@color/colorPrimaryThin"/>
+
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/music_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/seekbar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="48dp"
+            app:ms_arrow_tint="@android:color/holo_red_dark"
+            />
 
         <View
             android:id="@+id/overlay"
@@ -44,8 +55,8 @@
             android:layout_alignLeft="@id/seekbar"
             android:layout_alignRight="@id/seekbar"
             android:layout_alignTop="@id/seekbar"
-            android:visibility="invisible"
-            android:clickable="true" />
+            android:clickable="true"
+            android:visibility="invisible"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/stop_button"
@@ -54,7 +65,7 @@
             android:layout_below="@id/seekbar"
             android:layout_centerHorizontal="true"
             android:onClick="@{handler.clickStopTimer}"
-            android:src="@mipmap/ic_stop" />
+            android:src="@mipmap/ic_stop"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/pause_button"
@@ -63,7 +74,7 @@
             android:layout_below="@id/seekbar"
             android:layout_centerHorizontal="true"
             android:onClick="@{handler.clickPauseTimer}"
-            android:src="@mipmap/ic_pause" />
+            android:src="@mipmap/ic_pause"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/start_button"
@@ -72,7 +83,7 @@
             android:layout_below="@id/seekbar"
             android:layout_centerHorizontal="true"
             android:onClick="@{handler.clickStartTimer}"
-            android:src="@mipmap/ic_start" />
+            android:src="@mipmap/ic_start"/>
 
     </RelativeLayout>
 </layout>

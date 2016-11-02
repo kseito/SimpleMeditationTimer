@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar;
 
 import kzt.com.simplemeditationtimer.databinding.ActivityMainBinding;
@@ -51,6 +53,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
             @Override
             public void onStopTrackingTouch(HoloCircleSeekBar holoCircleSeekBar) {
 
+            }
+        });
+
+        binding.musicSpinner.setItems(SoundManager.getSoundList());
+        binding.musicSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                Snackbar.make(view, "Clicked" + item, Snackbar.LENGTH_LONG).show();
             }
         });
     }
