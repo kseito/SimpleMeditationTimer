@@ -12,23 +12,19 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
-import com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar;
 
 import kzt.com.simplemeditationtimer.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity implements MainActivityHandlers {
+public class MainActivity extends AppCompatActivity implements MainActivityHandlers, NumberPickerDialog.OnClickListener {
 
     private static final String PREF_SET_MINUTE = "set_time";
 
-    private TextView timerText;
     private ActivityMainBinding binding;
     private CountDownTimer timer;
     private AnimatorSet animatorSet;
-
     private int tempTimeInSecond;
 
     @Override
@@ -37,24 +33,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setHandler(this);
 
-        timerText = (TextView) findViewById(R.id.timer_text);
-
-        binding.seekbar.setOnSeekBarChangeListener(new HoloCircleSeekBar.OnCircleSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(HoloCircleSeekBar holoCircleSeekBar, int i, boolean b) {
-                timerText.setText(CommonUtil.convertTime(i));
-            }
-
-            @Override
-            public void onStartTrackingTouch(HoloCircleSeekBar holoCircleSeekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(HoloCircleSeekBar holoCircleSeekBar) {
-
-            }
-        });
+        binding.progress.setStartingDegree(270);
 
         binding.musicSpinner.setItems(SoundManager.getSoundList());
         binding.musicSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
@@ -63,11 +42,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
                 Snackbar.make(view, "Clicked" + item, Snackbar.LENGTH_LONG).show();
             }
         });
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int minute = prefs.getInt(PREF_SET_MINUTE, 0);
+        binding.timerText.setText(Utils.convertTime(minute));
+        binding.progress.setProgress(minute * 60);
     }
 
     private void startTimer(int timeSecond) {
-        binding.seekbar.setMax(3600);
-        binding.seekbar.setValue(timeSecond);
         System.out.println("start:" + timeSecond);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -75,30 +57,31 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
 
         binding.overlay.setVisibility(View.VISIBLE);
 
-        timer = new CountDownTimer(timeSecond * 1000, 200) {
+        timer = new CountDownTimer(timeSecond * 1000, 500) {
             @Override
             public void onTick(long millisUntilFinished) {
                 long second = millisUntilFinished / 1000;
-                binding.timerText.setText(String.format("%1$02d:%2$02d",
-                        second / 60, second % 60));
-                binding.seekbar.setValue(second);
+                binding.timerText.setText(String.format("%1$02d:%2$02d", second / 60, second % 60));
+                binding.progress.setProgress(second);
                 System.out.println("per second:" + second);
             }
 
             @Override
             public void onFinish() {
                 Toast.makeText(MainActivity.this, "終了", Toast.LENGTH_SHORT).show();
+                stopTimer();
             }
         };
         timer.start();
     }
 
     private void stopTimer() {
-        binding.seekbar.setMax(60);
+        AnimationUtils.stopMeditation(binding.startButton, binding.stopButton, binding.pauseButton);
+
         binding.overlay.setVisibility(View.INVISIBLE);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         int minute = prefs.getInt(PREF_SET_MINUTE, 0);
-        binding.timerText.setText(CommonUtil.convertTime(minute));
+        binding.timerText.setText(Utils.convertTime(minute));
         timer.cancel();
     }
 
@@ -107,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
             //pause
             animatorSet = AnimationUtils.flashing(binding.timerText);
             binding.pauseButton.setImageResource(R.mipmap.ic_start);
-            tempTimeInSecond = CommonUtil.convertTextToTime(binding.timerText.getText().toString()) + 1;
+            tempTimeInSecond = Utils.convertTextToTime(binding.timerText.getText().toString()) + 1;
             timer.cancel();
             System.out.println("pause save:" + tempTimeInSecond);
 
@@ -124,20 +107,23 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
     @Override
     public void clickStartTimer(View view) {
         AnimationUtils.startMeditation(binding.startButton, binding.stopButton, binding.pauseButton);
-
-        startTimer(binding.seekbar.getValue() * 60);
+        startTimer((int) binding.progress.getProgress());
     }
 
     @Override
     public void clickStopTimer(View view) {
-        AnimationUtils.stopMeditation(binding.startButton, binding.stopButton, binding.pauseButton);
-
         stopTimer();
     }
 
     @Override
     public void clickPauseTimer(View view) {
         pauseTimer();
+    }
+
+    @Override
+    public void clickChangeTimer(View view) {
+        NumberPickerDialog dialog = new NumberPickerDialog();
+        dialog.show(getSupportFragmentManager(), dialog.getClass().getCanonicalName());
     }
 
     private void playSound() {
@@ -148,5 +134,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
     private void vibrate() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(new long[]{0, 400, 800, 400, 800, 2000}, -1);
+    }
+
+    @Override
+    public void clickOk(int minute) {
+        binding.timerText.setText(Utils.convertTime(minute));
+        binding.progress.setProgress(minute * 60);
+    }
+
+    @Override
+    public void clickCancel() {
+
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <biz.kasual.materialnumberpicker.MaterialNumberPicker
+        android:id="@+id/number_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:npMaxValue="60"
+        app:npMinValue="1"
+        app:npSeparatorColor="@color/colorAccent"
+        app:npTextColor="@color/colorPrimary"
+        app:npTextSize="25sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@id/number_picker"
+        android:text="分"
+        android:textSize="24sp"
+        />
+
+</RelativeLayout>

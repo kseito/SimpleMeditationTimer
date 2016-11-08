@@ -1,5 +1,7 @@
 package kzt.com.simplemeditationtimer;
 
+import android.content.res.Resources;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -7,12 +9,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * Created by k-seito on 2016/08/27.
+ * Created by kazuto-seito on 2016/11/08.
  */
-public class CommonUtil {
+
+public final class Utils {
 
     public static String convertTime(int minute) {
-        return String.format("%1$02d:00", minute);
+        return String.format("%02d:00", minute);
     }
 
     public static int convertTextToTime(String time) {
@@ -27,4 +30,13 @@ public class CommonUtil {
         }
     }
 
+    public static float dp2px(Resources resources, float dp) {
+        final float scale = resources.getDisplayMetrics().density;
+        return  dp * scale + 0.5f;
+    }
+
+    public static float sp2px(Resources resources, float sp){
+        final float scale = resources.getDisplayMetrics().scaledDensity;
+        return sp * scale;
+    }
 }

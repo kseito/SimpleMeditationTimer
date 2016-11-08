@@ -21,40 +21,49 @@
             android:layout_centerInParent="true"
             android:text="00:00"
             android:textColor="@color/colorAccent"
-            android:textSize="35sp"/>
+            android:textSize="48sp"/>
 
-        <com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar
-            android:id="@+id/seekbar"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+        <kzt.com.simplemeditationtimer.DonutProgress
+            android:id="@+id/progress"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
             android:layout_centerInParent="true"
             android:layout_marginBottom="16dp"
-            app:max="60"
-            app:pointer_color="@color/colorAccent"
-            app:pointer_halo_color="@color/colorAccent"
-            app:pointer_size="12dp"
-            app:show_text="false"
-            app:wheel_active_color="@color/colorAccent"
-            app:wheel_unactive_color="@color/colorPrimaryThin"/>
+            app:donut_finished_color="@color/colorAccent"
+            app:donut_max="3600"
+            app:donut_text_color="@android:color/transparent"
+            app:donut_text_size="12dp"
+            app:donut_unfinished_color="@color/colorPrimaryThin"/>
 
         <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/music_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/seekbar"
+            android:layout_above="@id/progress"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="48dp"
             app:ms_arrow_tint="@android:color/holo_red_dark"
+            />
+
+        <ImageView
+            android:id="@+id/chane_time_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/progress"
+            android:layout_below="@id/timer_text"
+            android:layout_centerHorizontal="true"
+            android:onClick="@{handler.clickChangeTimer}"
+            android:src="@mipmap/ic_update"
             />
 
         <View
             android:id="@+id/overlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/seekbar"
-            android:layout_alignLeft="@id/seekbar"
-            android:layout_alignRight="@id/seekbar"
-            android:layout_alignTop="@id/seekbar"
+            android:layout_alignBottom="@id/progress"
+            android:layout_alignLeft="@id/progress"
+            android:layout_alignRight="@id/progress"
+            android:layout_alignTop="@id/progress"
             android:clickable="true"
             android:visibility="invisible"/>
 
@@ -62,7 +71,7 @@
             android:id="@+id/stop_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/seekbar"
+            android:layout_below="@id/progress"
             android:layout_centerHorizontal="true"
             android:onClick="@{handler.clickStopTimer}"
             android:src="@mipmap/ic_stop"/>
@@ -71,7 +80,7 @@
             android:id="@+id/pause_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/seekbar"
+            android:layout_below="@id/progress"
             android:layout_centerHorizontal="true"
             android:onClick="@{handler.clickPauseTimer}"
             android:src="@mipmap/ic_pause"/>
@@ -80,7 +89,7 @@
             android:id="@+id/start_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/seekbar"
+            android:layout_below="@id/progress"
             android:layout_centerHorizontal="true"
             android:onClick="@{handler.clickStartTimer}"
             android:src="@mipmap/ic_start"/>

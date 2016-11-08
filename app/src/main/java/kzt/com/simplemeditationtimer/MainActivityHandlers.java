@@ -9,4 +9,5 @@ public interface MainActivityHandlers {
     void clickStartTimer(View view);
     void clickStopTimer(View view);
     void clickPauseTimer(View view);
+    void clickChangeTimer(View view);
 }
