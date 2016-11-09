@@ -7,15 +7,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Created by kazuto-seito on 2016/11/08.
  */
 
-public final class Utils {
+public class Utils {
 
     public static String convertTime(int minute) {
-        return String.format("%02d:00", minute);
+        return String.format(Locale.JAPAN, "%02d:00", minute);
     }
 
     public static int convertTextToTime(String time) {

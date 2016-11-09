@@ -12,9 +12,10 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
+
+import java.util.Locale;
 
 import kzt.com.simplemeditationtimer.databinding.ActivityMainBinding;
 
@@ -55,21 +56,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.edit().putInt(PREF_SET_MINUTE, timeSecond / 60).apply();
 
-        binding.overlay.setVisibility(View.VISIBLE);
-
         timer = new CountDownTimer(timeSecond * 1000, 500) {
             @Override
             public void onTick(long millisUntilFinished) {
                 long second = millisUntilFinished / 1000;
-                binding.timerText.setText(String.format("%1$02d:%2$02d", second / 60, second % 60));
+                binding.timerText.setText(String.format(Locale.JAPAN, "%1$02d:%2$02d", second / 60, second % 60));
                 binding.progress.setProgress(second);
                 System.out.println("per second:" + second);
             }
 
             @Override
             public void onFinish() {
-                Toast.makeText(MainActivity.this, "終了", Toast.LENGTH_SHORT).show();
-                stopTimer();
+                playSound();
+                vibrate();
+                finishTimer();
             }
         };
         timer.start();
@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
     private void stopTimer() {
         AnimationUtils.stopMeditation(binding.startButton, binding.stopButton, binding.pauseButton);
 
-        binding.overlay.setVisibility(View.INVISIBLE);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         int minute = prefs.getInt(PREF_SET_MINUTE, 0);
         binding.timerText.setText(Utils.convertTime(minute));
@@ -102,6 +101,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
             tempTimeInSecond = 0;
             System.out.println("pause reset:" + tempTimeInSecond);
         }
+    }
+
+    private void finishTimer() {
+        binding.pauseButton.setVisibility(View.INVISIBLE);
     }
 
     @Override

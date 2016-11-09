@@ -13,14 +13,14 @@ public class UtilTest {
     @Test
     public void checkConvertTime() {
         int minute = 10;
-        String actual = CommonUtil.convertTime(minute);
+        String actual = Utils.convertTime(minute);
         Assert.assertThat(actual, is("10:00"));
     }
 
     @Test
     public void changeTextToTime() {
         String time = "10:25";
-        int actual = CommonUtil.convertTextToTime(time);
+        int actual = Utils.convertTextToTime(time);
         Assert.assertThat(actual, is(625));
     }
 }

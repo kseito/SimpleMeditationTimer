@@ -56,17 +56,6 @@
             android:src="@mipmap/ic_update"
             />
 
-        <View
-            android:id="@+id/overlay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/progress"
-            android:layout_alignLeft="@id/progress"
-            android:layout_alignRight="@id/progress"
-            android:layout_alignTop="@id/progress"
-            android:clickable="true"
-            android:visibility="invisible"/>
-
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/stop_button"
             android:layout_width="wrap_content"
