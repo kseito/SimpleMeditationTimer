@@ -81,7 +81,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         int minute = prefs.getInt(PREF_SET_MINUTE, 0);
         binding.timerText.setText(Utils.convertTime(minute));
+        binding.progress.setProgress(minute * 60);
         timer.cancel();
+
+        //pause -> stop
+        if (tempTimeInSecond != 0) {
+            animatorSet.removeAllListeners();
+            binding.pauseButton.setImageResource(R.mipmap.ic_pause);
+            tempTimeInSecond = 0;
+        }
     }
 
     private void pauseTimer() {
