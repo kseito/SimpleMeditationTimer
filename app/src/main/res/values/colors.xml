@@ -6,6 +6,7 @@
     <color name="colorAccent">#6AAA99</color>
 
     <color name="colorDarkGray">#555</color>
+    <color name="colorThinGray">#AAA</color>
 
     <color name="colorWhite">#FFF</color>
 </resources>

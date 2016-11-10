@@ -3,7 +3,7 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/top_menu_setting"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_settings"
         android:title="設定"
         app:showAsAction="always"
         />

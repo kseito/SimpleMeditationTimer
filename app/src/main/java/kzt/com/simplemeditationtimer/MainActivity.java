@@ -2,6 +2,7 @@ package kzt.com.simplemeditationtimer;
 
 import android.animation.AnimatorSet;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
@@ -12,6 +13,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -55,6 +57,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.top, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.top_menu_setting:
+                startActivity(new Intent(this, SettingActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void startTimer(int timeSecond) {
