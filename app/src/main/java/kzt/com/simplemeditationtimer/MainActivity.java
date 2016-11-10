@@ -11,6 +11,7 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.View;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -48,6 +49,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
         int minute = prefs.getInt(PREF_SET_MINUTE, 0);
         binding.timerText.setText(Utils.convertTime(minute));
         binding.progress.setProgress(minute * 60);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top, menu);
+        return true;
     }
 
     private void startTimer(int timeSecond) {
