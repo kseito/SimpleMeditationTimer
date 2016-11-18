@@ -10,4 +10,5 @@ public interface MainActivityHandlers {
     void clickStopTimer(View view);
     void clickPauseTimer(View view);
     void clickChangeTimer(View view);
+    void clickSoundListen(View view);
 }

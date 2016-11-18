@@ -10,22 +10,22 @@ import java.util.List;
 public class SoundManager {
     public static List<String> getSoundList() {
         List<String> list = new ArrayList<>();
-        list.add("test1");
-        list.add("test2");
-        list.add("test3");
+        list.add("鐘の音");
+        list.add("和風の鐘の音");
+        list.add("デジタル音");
         return list;
     }
 
-    public static int findSoundById(int id) {
-        switch (id) {
+    public static int findSoundById(int position) {
+        switch (position) {
+            case 0:
+                return R.raw.japanese_temple_bell_small;
             case 1:
-                return R.raw.piano;
+                return R.raw.temple_bell;
             case 2:
-                return R.raw.piano;
-            case 3:
-                return R.raw.piano;
+                return R.raw.store_door_chime;
         }
 
-        throw new IllegalArgumentException("Id not found");
+        throw new IllegalArgumentException("position " +  position + " not found");
     }
 }

@@ -5,13 +5,13 @@
 
         <variable
             name="handler"
-            type="kzt.com.simplemeditationtimer.MainActivityHandlers"/>
+            type="kzt.com.simplemeditationtimer.MainActivityHandlers" />
     </data>
 
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/background_main">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_main">
 
 
         <TextView
@@ -21,7 +21,7 @@
             android:layout_centerInParent="true"
             android:text="00:00"
             android:textColor="@color/colorAccent"
-            android:textSize="48sp"/>
+            android:textSize="48sp" />
 
         <kzt.com.simplemeditationtimer.DonutProgress
             android:id="@+id/progress"
@@ -33,7 +33,7 @@
             app:donut_max="3600"
             app:donut_text_color="@android:color/transparent"
             app:donut_text_size="12dp"
-            app:donut_unfinished_color="@color/colorPrimaryThin"/>
+            app:donut_unfinished_color="@color/colorPrimaryThin" />
 
         <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/music_spinner"
@@ -42,8 +42,17 @@
             android:layout_above="@id/progress"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="48dp"
-            app:ms_arrow_tint="@android:color/holo_red_dark"
-            />
+            app:ms_arrow_tint="@android:color/holo_red_dark" />
+
+        <ImageView
+            android:id="@+id/sound_start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/music_spinner"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/music_spinner"
+            android:onClick="@{handler.clickSoundListen}"
+            android:src="@mipmap/ic_music_note" />
 
         <ImageView
             android:id="@+id/chane_time_button"
@@ -53,8 +62,7 @@
             android:layout_below="@id/timer_text"
             android:layout_centerHorizontal="true"
             android:onClick="@{handler.clickChangeTimer}"
-            android:src="@mipmap/ic_update"
-            />
+            android:src="@mipmap/ic_update" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/stop_button"
@@ -63,7 +71,7 @@
             android:layout_below="@id/progress"
             android:layout_centerHorizontal="true"
             android:onClick="@{handler.clickStopTimer}"
-            android:src="@mipmap/ic_stop"/>
+            android:src="@mipmap/ic_stop" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/pause_button"
@@ -72,7 +80,7 @@
             android:layout_below="@id/progress"
             android:layout_centerHorizontal="true"
             android:onClick="@{handler.clickPauseTimer}"
-            android:src="@mipmap/ic_pause"/>
+            android:src="@mipmap/ic_pause" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/start_button"
@@ -81,7 +89,7 @@
             android:layout_below="@id/progress"
             android:layout_centerHorizontal="true"
             android:onClick="@{handler.clickStartTimer}"
-            android:src="@mipmap/ic_start"/>
+            android:src="@mipmap/ic_start" />
 
     </RelativeLayout>
 </layout>

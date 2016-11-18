@@ -10,13 +10,10 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.Locale;
 
@@ -40,12 +37,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
         binding.progress.setStartingDegree(270);
 
         binding.musicSpinner.setItems(SoundManager.getSoundList());
-        binding.musicSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                Snackbar.make(view, "Clicked" + item, Snackbar.LENGTH_LONG).show();
-            }
-        });
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         int minute = prefs.getInt(PREF_SET_MINUTE, 0);
@@ -157,14 +148,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
         dialog.show(getSupportFragmentManager(), dialog.getClass().getCanonicalName());
     }
 
+    @Override
+    public void clickSoundListen(View view) {
+        playSound();
+    }
+
     private void playSound() {
-        MediaPlayer mp = MediaPlayer.create(this, R.raw.piano);
+        int musicResource = SoundManager.findSoundById(binding.musicSpinner.getSelectedIndex());
+        MediaPlayer mp = MediaPlayer.create(this, musicResource);
         mp.start();
     }
 
     private void vibrate() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(new long[]{0, 400, 800, 400, 800, 2000}, -1);
+        vibrator.vibrate(new long[]{0, 400, 800, 400, 800, 800}, -1);
     }
 
     @Override
