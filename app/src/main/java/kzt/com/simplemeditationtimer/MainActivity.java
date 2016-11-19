@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
     private CountDownTimer timer;
     private AnimatorSet animatorSet;
     private int tempTimeInSecond;
+    private boolean isMeditating = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
 
     private void startTimer(int timeSecond) {
         System.out.println("start:" + timeSecond);
+        isMeditating = true;
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.edit().putInt(PREF_SET_MINUTE, timeSecond / 60).apply();
@@ -88,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
 
     private void stopTimer() {
         AnimationUtils.stopMeditation(binding.startButton, binding.stopButton, binding.pauseButton);
+
+        isMeditating = false;
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         int minute = prefs.getInt(PREF_SET_MINUTE, 0);
@@ -144,6 +148,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
 
     @Override
     public void clickChangeTimer(View view) {
+
+        if (isMeditating) {
+            return;
+        }
+
         NumberPickerDialog dialog = new NumberPickerDialog();
         dialog.show(getSupportFragmentManager(), dialog.getClass().getCanonicalName());
     }
