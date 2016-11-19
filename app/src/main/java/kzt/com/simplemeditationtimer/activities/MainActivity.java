@@ -1,4 +1,4 @@
-package kzt.com.simplemeditationtimer;
+package kzt.com.simplemeditationtimer.activities;
 
 import android.animation.AnimatorSet;
 import android.content.Context;
@@ -17,6 +17,12 @@ import android.view.View;
 
 import java.util.Locale;
 
+import kzt.com.simplemeditationtimer.utils.AnimationUtils;
+import kzt.com.simplemeditationtimer.MainActivityHandlers;
+import kzt.com.simplemeditationtimer.NumberPickerDialog;
+import kzt.com.simplemeditationtimer.R;
+import kzt.com.simplemeditationtimer.SoundManager;
+import kzt.com.simplemeditationtimer.utils.Utils;
 import kzt.com.simplemeditationtimer.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements MainActivityHandlers, NumberPickerDialog.OnClickListener {

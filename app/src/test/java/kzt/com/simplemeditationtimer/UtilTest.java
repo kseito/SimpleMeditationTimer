@@ -3,6 +3,8 @@ package kzt.com.simplemeditationtimer;
 import org.junit.Assert;
 import org.junit.Test;
 
+import kzt.com.simplemeditationtimer.utils.Utils;
+
 import static org.hamcrest.CoreMatchers.is;
 
 /**

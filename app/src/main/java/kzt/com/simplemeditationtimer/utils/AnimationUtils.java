@@ -1,4 +1,4 @@
-package kzt.com.simplemeditationtimer;
+package kzt.com.simplemeditationtimer.utils;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;

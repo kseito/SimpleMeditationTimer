@@ -15,6 +15,8 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
+import kzt.com.simplemeditationtimer.utils.Utils;
+
 /**
  * Created by bruce on 14-10-30.
  */
