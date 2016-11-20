@@ -12,13 +12,13 @@ import android.widget.CompoundButton;
 
 import kzt.com.simplemeditationtimer.R;
 import kzt.com.simplemeditationtimer.databinding.ActivitySettingBinding;
+import kzt.com.simplemeditationtimer.utils.Utils;
 
 /**
  * Created by k-seito on 2016/11/10.
  */
 public class SettingActivity extends AppCompatActivity {
 
-    public static final String PREF_NO_SLEEP = "no_sleep";
 
     private ActivitySettingBinding binding;
 
@@ -28,11 +28,13 @@ public class SettingActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_setting);
         getSupportActionBar().setTitle("設定");
 
+        boolean isNoSleep = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Utils.PREF_NO_SLEEP, false);
+        binding.sleepSwitch.setChecked(isNoSleep);
         binding.sleepSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                prefs.edit().putBoolean(PREF_NO_SLEEP, isChecked).apply();
+                prefs.edit().putBoolean(Utils.PREF_NO_SLEEP, isChecked).apply();
             }
         });
 

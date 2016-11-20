@@ -14,16 +14,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 
 import java.util.Locale;
 
-import kzt.com.simplemeditationtimer.utils.AnimationUtils;
 import kzt.com.simplemeditationtimer.MainActivityHandlers;
 import kzt.com.simplemeditationtimer.NumberPickerDialog;
 import kzt.com.simplemeditationtimer.R;
 import kzt.com.simplemeditationtimer.SoundManager;
-import kzt.com.simplemeditationtimer.utils.Utils;
 import kzt.com.simplemeditationtimer.databinding.ActivityMainBinding;
+import kzt.com.simplemeditationtimer.utils.AnimationUtils;
+import kzt.com.simplemeditationtimer.utils.Utils;
 
 public class MainActivity extends AppCompatActivity implements MainActivityHandlers, NumberPickerDialog.OnClickListener {
 
@@ -49,6 +50,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
         int minute = prefs.getInt(PREF_SET_MINUTE, 0);
         binding.timerText.setText(Utils.convertTime(minute));
         binding.progress.setProgress(minute * 60);
+
+        init();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setSleepMode();
     }
 
     @Override
@@ -188,5 +197,26 @@ public class MainActivity extends AppCompatActivity implements MainActivityHandl
     @Override
     public void clickCancel() {
 
+    }
+
+    private void init() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getBoolean(Utils.PREF_FIRST_BOOT, true)) {
+            prefs.edit()
+                    .putBoolean(Utils.PREF_FIRST_BOOT, true)
+                    .putBoolean(Utils.PREF_NO_SLEEP, true)
+                    .apply();
+        }
+    }
+
+    private void setSleepMode() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getBoolean(Utils.PREF_NO_SLEEP, false)) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            System.out.println("no sleep");
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            System.out.println("sleep");
+        }
     }
 }

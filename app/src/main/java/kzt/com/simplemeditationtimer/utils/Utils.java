@@ -15,6 +15,10 @@ import java.util.Locale;
 
 public class Utils {
 
+    //SharedPreferences
+    public static final String PREF_FIRST_BOOT = "first_boot";
+    public static final String PREF_NO_SLEEP = "no_sleep";
+
     public static String convertTime(int minute) {
         return String.format(Locale.JAPAN, "%02d:00", minute);
     }
